@@ -13,7 +13,7 @@ class Board
   end
 
   def populated_cells(column, row)
-    if column == 7 && row == 7
+    if column == 1 && row == 0
       cell[row][column] = "🐴 \t" 
     elsif @@board_count.even?
       cell[row][column] = "⬜ \t"
