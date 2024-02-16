@@ -12,13 +12,13 @@ class Board
     @cell = Array.new(8) { Array.new(8) }
   end
 
-  def populated_cells(row, column)
-    if row.zero? && column == 1
+  def populated_cells(column, row)
+    if column == 7 && row == 7
       cell[row][column] = "🐴 \t" 
     elsif @@board_count.even?
-      cell[row][column] = "⚪ \t"
+      cell[row][column] = "⬜ \t"
     else
-      cell[row][column] = "⚫ \t"
+      cell[row][column] = "⬛ \t"
     end
   end
 
@@ -33,7 +33,7 @@ class Board
   def show
     rows.times do |r|
       columns.times do |j|
-        print populated_cells(r, j)
+        print populated_cells(j, r)
         @@board_count += 1
       end
       reverse_colors(r)
