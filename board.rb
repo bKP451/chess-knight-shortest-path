@@ -9,16 +9,16 @@ class Board
     @rows = 8
     @columns = 8
     @initial_knight_position = [0][1]
-    @cell = Array.new(8) { Array.new(8) }
+    @cell = Array.new(8) { Array.new(2) }
   end
 
   def populated_cells(column, row)
-    if column == 7 && row == 7
-      cell[row][column] = "🐴 \t"
+    if column == 3 && row == 3
+      cell[row][column] = '🐴'
     elsif @@board_count.even?
-      cell[row][column] = "⬜ \t"
+      cell[row][column] = '⬜'
     else
-      cell[row][column] = "⬛ \t"
+      cell[row][column] = '⬛'
     end
   end
 

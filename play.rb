@@ -15,14 +15,12 @@ class Game
 
   def instructions
     puts 'SHORTEST PATH FOR THE KNIGHT'.green
-    puts "----------------------------\n\n\n\n".blue
+    puts "----------------------------\n\n".blue
     board.show
   end
 
   def check_for_out_of_boundary(new_x, new_y)
-    if new_x > -1 && new_x < 8 && new_y > -1 && new_y < 8
-      possible_steps << [new_x, new_y]
-    end
+    possible_steps << [new_x, new_y] if new_x > -1 && new_x < 8 && new_y > -1 && new_y < 8
     possible_steps
   end
 
@@ -50,12 +48,20 @@ class Game
     new_x = x - 2
     new_y = y + 1
     check_for_out_of_boundary(new_x, new_y)
+
+    new_x = x + 2
+    new_y = y + 1
+    check_for_out_of_boundary(new_x, new_y)
+
+    new_x = x + 2
+    new_y = y - 1
+    check_for_out_of_boundary(new_x, new_y)
   end
 
   def possible_moves
     current_knight_position = [2, 2]
-    base_x = 7
-    base_y = 7
+    base_x = 3
+    base_y = 3
     calculate_possible_moves(base_x, base_y)
   end
 end
