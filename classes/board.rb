@@ -7,11 +7,10 @@ class Board
   def initialize
     @rows = 8
     @columns = 8
-    @initial_knight_position_x = 0
-    @initial_knight_position_y = 1
+    @initial_knight_position_x = 3
+    @initial_knight_position_y = 4
     @board = Array.new(8) { Array.new(8) }
     @board_count = 0
-    @show_knight_once = 1
   end
 
   def populate_board(column, row)
