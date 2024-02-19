@@ -5,10 +5,10 @@ require_relative 'board'
 
 # A Chess game class
 class Game
-  attr_accessor :board, :possible_steps
+  attr_accessor :chess_board, :possible_steps
 
   def initialize
-    @board = Board.new
+    @chess_board = Board.new
     instructions
     @possible_steps = []
   end
@@ -16,7 +16,7 @@ class Game
   def instructions
     puts 'SHORTEST PATH FOR THE KNIGHT'.green
     puts "----------------------------\n\n".blue
-    board.show
+    chess_board.show_board
   end
 
   def check_for_out_of_boundary(new_x, new_y)
@@ -58,10 +58,16 @@ class Game
     check_for_out_of_boundary(new_x, new_y)
   end
 
+  def position_of_knight
+    chess_board.board.each_with_index do |row, vertical_index|
+      row.each_with_index do |square, horizontal_index|
+        return [horizontal_index, vertical_index] if square.eql? '🐴'
+      end
+    end
+  end
+
   def possible_moves
-    current_knight_position = [2, 2]
-    base_x = 3
-    base_y = 3
-    calculate_possible_moves(base_x, base_y)
+    base_x, base_y = position_of_knight
+    p calculate_possible_moves(base_x, base_y)
   end
 end

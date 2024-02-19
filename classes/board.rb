@@ -2,23 +2,23 @@
 
 # Chess Board
 class Board
-  attr_accessor :rows, :columns, :initial_knight_position, :cell, :board_count
+  attr_accessor :rows, :columns, :initial_knight_position_x, :initial_knight_position_y, :board_count, :board
 
   def initialize
     @rows = 8
     @columns = 8
-    @initial_knight_position = [0][1]
-    @cell = Array.new(8) { Array.new(2) }
+    @initial_knight_position_x = 0
+    @initial_knight_position_y = 1
+    @board = Array.new(8) { Array.new(8) }
     @board_count = 0
+    @show_knight_once = 1
   end
 
-  def populated_cells(column, row)
-    if column == 3 && row == 3
-      cell[row][column] = '🐴'
-    elsif board_count.even?
-      cell[row][column] = '⬜'
+  def populate_board(column, row)
+    if board_count.even?
+      board[row][column] = '⬜'
     else
-      cell[row][column] = '⬛'
+      board[row][column] = '⬛'
     end
   end
 
@@ -30,14 +30,25 @@ class Board
     end
   end
 
-  def show
+  def fill_up_board
     rows.times do |r|
       columns.times do |j|
-        print populated_cells(j, r)
+        if j == initial_knight_position_x && r == initial_knight_position_y
+          board[initial_knight_position_x][initial_knight_position_y] = '🐴'
+        else
+          board[j][r] = populate_board(j, r)
+        end
         @board_count += 1
       end
       reverse_colors(r)
-      puts
+    end
+    board
+  end
+
+  def show_board
+    chess_board = fill_up_board
+    chess_board.each do |row|
+      print "#{row} \n"
     end
   end
 end
