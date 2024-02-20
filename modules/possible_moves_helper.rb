@@ -2,7 +2,7 @@
 
 # Helpers for a knight's possible moves
 module PossibleMovesHelper
-  def calculate_possible_moves(x, y)
+  def calculate_possible_moves(x = @position[0], y = @position[1])
     new_x = x - 1
     new_y = y - 2
     check_for_out_of_boundary(new_x, new_y)
