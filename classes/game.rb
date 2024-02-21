@@ -36,6 +36,7 @@ class Game
 
   def show_traversal_path(start_coords, end_coords)
     knight = bfs(start_coords, end_coords)
+    puts knight.inspect
     path = []
 
     until knight.nil?
