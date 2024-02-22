@@ -23,30 +23,46 @@ class Game
   end
 
   def bfs(start_coords, end_coords)
-    queue = [Knight.new(start_coords)]
-    until queue.empty?
-      knight = queue.shift
-      return knight if knight.position == end_coords
-
-      knight.calculate_possible_moves.each do |move|
-        queue.push(Knight.new(move, knight))
+    next_squares = [Knight.new(start_coords)]
+    until next_squares.empty? || next_squares.any? { |square| square.position == end_coords }
+      current_squares = next_squares
+      next_squares = []
+      current_squares.each do |square|
+        square.calculate_possible_moves.each do |move|
+          next_squares.push(Knight.new(move, square))
+        end
       end
     end
+
+    destinations = next_squares.select { |square| square.position == end_coords }
+    paths = reconstruct_path(destinations)
+
+    pretty_print(paths)
   end
 
-  def show_traversal_path(start_coords, end_coords)
-    knight = bfs(start_coords, end_coords)
-    puts knight.inspect
-    path = []
+  private
 
-    until knight.nil?
-      path << knight.position
-      knight = knight.parent
+  def reconstruct_path(destinations)
+    paths = []
+
+    destinations.each do |current|
+      path = []
+
+      while current
+        path.unshift(current.position)
+        current = current.parent
+      end
+      paths << path
     end
 
-    puts "The traversal path is #{path.size} moves"
-    path.reverse.each do |step|
-      p step
+    paths
+  end
+
+  def pretty_print(paths)
+
+    paths.each_with_index do |path, index|
+      puts "\nPath #{index + 1}:"
+      path.each { |coords| puts coords.inspect }
     end
   end
 end
