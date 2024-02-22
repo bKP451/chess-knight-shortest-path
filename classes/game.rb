@@ -44,18 +44,22 @@ class Game
 
   def reconstruct_path(destinations)
     paths = []
+    ascending_paths = []
 
     destinations.each do |current|
       path = []
-
-      while current
-        path.unshift(current.position)
+      until current.nil?
+        path << current.position
         current = current.parent
       end
       paths << path
     end
 
-    paths
+    paths.reverse.each do |step|
+      ascending_paths << step
+    end
+
+    ascending_paths
   end
 
   def pretty_print(paths)
