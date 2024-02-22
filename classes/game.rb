@@ -23,18 +23,17 @@ class Game
   end
 
   def bfs(start_coords, end_coords)
-    next_squares = [Knight.new(start_coords)]
-    until next_squares.empty? || next_squares.any? { |square| square.position == end_coords }
-      current_squares = next_squares
-      next_squares = []
+    queue = [Knight.new(start_coords)]
+    until queue.any? { |square| square.position == end_coords }
+      current_squares = queue
+      queue = []
       current_squares.each do |square|
         square.calculate_possible_moves.each do |move|
-          next_squares.push(Knight.new(move, square))
+          queue.push(Knight.new(move, square))
         end
       end
     end
-
-    destinations = next_squares.select { |square| square.position == end_coords }
+    destinations = queue.select { |square| square.position == end_coords }
     paths = reconstruct_path(destinations)
 
     pretty_print(paths)
