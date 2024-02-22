@@ -48,7 +48,7 @@ class Game
     destinations.each do |current|
       path = []
       until current.nil?
-        path << current.position
+        path.unshift(current.position)
         current = current.parent
       end
       paths << path

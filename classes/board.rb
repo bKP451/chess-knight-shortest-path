@@ -7,8 +7,8 @@ class Board
   def initialize
     @rows = 8
     @columns = 8
-    @initial_knight_position_x = 0
-    @initial_knight_position_y = 0
+    @initial_knight_position_x = 1
+    @initial_knight_position_y = 2
     @board = Array.new(8) { Array.new(8) }
     @board_count = 0
   end
